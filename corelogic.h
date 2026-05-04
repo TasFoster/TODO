@@ -8,6 +8,7 @@
 
 struct DataTask
 {
+    int id;
     QString title;
     QString description;
     DataTask() {}
@@ -23,7 +24,7 @@ class CoreLogic : public QObject
 public:
     CoreLogic(QString name_db);
 
-    QStringListModel GetListTask();
+    QList<DataTask> GetListTask();
 
 
 public slots:

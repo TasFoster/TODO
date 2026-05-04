@@ -7,6 +7,21 @@ CoreLogic::CoreLogic(QString name_db) {
     db.close();
 }
 
+QList<DataTask> CoreLogic::GetListTask()
+{
+    db.open();
+    QSqlQuery query(db);
+    QList<DataTask> list;
+    query.exec("SELECT * FROM Tasks");
+    while (query.next()) {
+        DataTask task(query.value("title").toString(), query.value("description").toString());
+        task.id = query.value("id").toInt();
+        list.append(task);
+    }
+    db.close();
+    return list;
+}
+
 bool CoreLogic::SaveTask(const DataTask *task)
 {
     if(task != nullptr){

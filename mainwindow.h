@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "createtask.h"
 #include "corelogic.h"
+#include "task.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

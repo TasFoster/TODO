@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     s = new CoreLogic("my_db.db");
 
-
+    updateListTask();
 
 }
 
@@ -36,6 +36,15 @@ void MainWindow::on_addTask_clicked()
 
 void MainWindow::updateListTask()
 {
+    QList<DataTask> list = s->GetListTask();
+
+    for (DataTask i : list){
+        QListWidgetItem *listUI = new QListWidgetItem(ui->listTask);
+        Task *newTask = new Task(&i, ui->listTask);
+        qDebug() << i.title;
+        listUI->setSizeHint(newTask->sizeHint());
+        ui->listTask->setItemWidget(listUI, newTask);
+    }
 
 }
 

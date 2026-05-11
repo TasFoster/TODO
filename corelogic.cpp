@@ -1,5 +1,13 @@
 #include "corelogic.h"
 
+bool CoreLogic::validData(QString data, std::string mode)
+{
+    if (mode == "data"){
+
+    }
+    return false;
+}
+
 CoreLogic::CoreLogic(QString name_db) {
     db = QSqlDatabase::addDatabase("QSQLITE");
     db.setDatabaseName(name_db);
@@ -25,6 +33,7 @@ QList<DataTask> CoreLogic::GetListTask()
 bool CoreLogic::SaveTask(const DataTask *task)
 {
     if(task != nullptr){
+
         db.open();
         QSqlQuery query(db);
 

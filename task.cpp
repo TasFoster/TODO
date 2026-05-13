@@ -13,6 +13,12 @@ Task::Task(const DataTask *taskData, QWidget *parent)
 
     ui->title->setText(taskData->title);
     ui->description->setText(taskData->description);
+    ui->comboBox->setCurrentText(taskData->status);
+    ui->Deadlinelabel->setText(taskData->deadline);
+    ui->Create_Atlabel->setText(taskData->created_at);
+    ui->Taglabel->setText(taskData->tag);
+
+
 }
 
 Task::~Task()
@@ -20,8 +26,5 @@ Task::~Task()
     delete ui;
 }
 
-void Task::on_pushButton_clicked()
-{
-    this->setStyleSheet("background:#03ff1c;");
-}
+
 

@@ -9,18 +9,25 @@
 struct DataTask
 {
     int id;
-    QString title;
-    QString description;
+    QString title, description, status, created_at, deadline, tag;
     DataTask() {}
-    DataTask(QString title, QString description){
+    DataTask(QString title, QString description = "",
+             QString created_at = "", QString deadline = "",
+            QString tag = ""){
         this->title = title;
         this->description = description;
+        this->created_at = created_at;
+        this->deadline = deadline;
+        this->tag = tag;
     }
 };
 class CoreLogic : public QObject
 {
     Q_OBJECT
     QSqlDatabase db;
+
+    bool validDataTime(QString data, std::string mode = "data");
+
 public:
     CoreLogic(QString name_db);
 

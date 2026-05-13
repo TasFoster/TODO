@@ -1,11 +1,10 @@
 #include "corelogic.h"
 
-bool CoreLogic::validData(QString data, std::string mode)
-{
-    if (mode == "data"){
 
-    }
-    return false;
+
+bool CoreLogic::validDataTime(QString data, std::string mode)
+{
+    return true;
 }
 
 CoreLogic::CoreLogic(QString name_db) {
@@ -22,7 +21,10 @@ QList<DataTask> CoreLogic::GetListTask()
     QList<DataTask> list;
     query.exec("SELECT * FROM Tasks");
     while (query.next()) {
-        DataTask task(query.value("title").toString(), query.value("description").toString());
+        DataTask task(query.value("title").toString(), query.value("description").toString(),
+                      query.value("created_at").toString(), query.value("deadline").toString(),
+                      query.value("tags").toString() );
+        task.status = query.value("status").toString();
         task.id = query.value("id").toInt();
         list.append(task);
     }

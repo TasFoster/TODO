@@ -41,7 +41,6 @@ void MainWindow::updateListTask()
     for (DataTask i : list){
         QListWidgetItem *listUI = new QListWidgetItem(ui->listTask);
         Task *newTask = new Task(&i, ui->listTask);
-        qDebug() << i.title;
         listUI->setSizeHint(newTask->sizeHint());
         ui->listTask->setItemWidget(listUI, newTask);
     }

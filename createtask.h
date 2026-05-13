@@ -2,6 +2,7 @@
 #define CREATETASK_H
 
 #include <QMainWindow>
+#include <QDateTime>
 #include "corelogic.h"
 
 namespace Ui {

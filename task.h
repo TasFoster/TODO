@@ -4,26 +4,24 @@
 #include <QWidget>
 #include "corelogic.h"
 
-namespace Ui {
-class Task;
-}
+namespace Ui { class Task; }
 
 class Task : public QWidget
 {
     Q_OBJECT
-    int taskId;
 
 public:
     explicit Task(const DataTask *taskData, QWidget *parent = nullptr);
-
     ~Task();
 
-
-private slots:
-
+signals:
+    void deleteRequested(int taskId);
+    void statusChanged(int taskId, const QString &status);
 
 private:
     Ui::Task *ui;
+    int taskId;
+    void applyStatusStyle(const QString &status);
 };
 
 #endif // TASK_H

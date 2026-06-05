@@ -4,39 +4,36 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlError>
-#include <QStringListModel>
+#include <QDebug>
 
 struct DataTask
 {
-    int id;
+    int id = 0;
     QString title, description, status, created_at, deadline, tag;
+
     DataTask() {}
     DataTask(QString title, QString description = "",
              QString created_at = "", QString deadline = "",
-            QString tag = ""){
-        this->title = title;
-        this->description = description;
-        this->created_at = created_at;
-        this->deadline = deadline;
-        this->tag = tag;
-    }
+             QString tag = "", QString status = "Активная")
+        : title(title), description(description),
+          created_at(created_at), deadline(deadline),
+          tag(tag), status(status) {}
 };
+
 class CoreLogic : public QObject
 {
     Q_OBJECT
     QSqlDatabase db;
-
-    bool validDataTime(QString data, std::string mode = "data");
 
 public:
     CoreLogic(QString name_db);
 
     QList<DataTask> GetListTask();
 
-
 public slots:
-    bool SaveTask(const DataTask *task);
-
+    bool SaveTask(DataTask task);
+    bool UpdateTaskStatus(int taskId, const QString &status);
+    bool DeleteTask(int taskId);
 };
 
 #endif // CORELOGIC_H

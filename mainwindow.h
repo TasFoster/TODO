@@ -7,9 +7,7 @@
 #include "task.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui {
-class MainWindow;
-}
+namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
@@ -20,17 +18,15 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    CoreLogic *s;
-
 private slots:
-    void on_setings_clicked();
-
     void on_addTask_clicked();
-
     void updateListTask();
+    void onTaskDeleted(int taskId);
+    void onStatusChanged(int taskId, const QString &status);
 
 private:
     Ui::MainWindow *ui;
-
+    CoreLogic *logic;
 };
+
 #endif // MAINWINDOW_H

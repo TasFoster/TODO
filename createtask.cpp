@@ -2,19 +2,16 @@
 #include "ui_createtask.h"
 
 CreateTask::CreateTask(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::CreateTask)
+    : QDialog(parent), ui(new Ui::CreateTask)
 {
     ui->setupUi(this);
+    setModal(true);
 
-    ui->TagsComboBox->addItems({
-        "Активная",
-        "В процессе",
-        "Завершена",
-        "Отложена",
-        "Провалена"
-    });
-
+    ui->statusCombo->addItems({"Активная", "В процессе", "Завершена", "Отложена", "Провалена"});
+    ui->dateEdit->setDate(QDate::currentDate());
+    ui->dateEdit->setDisplayFormat("dd.MM.yyyy");
+    ui->timeEdit->setTime(QTime(23, 59));
+    ui->timeEdit->setDisplayFormat("HH:mm");
 }
 
 CreateTask::~CreateTask()
@@ -22,16 +19,25 @@ CreateTask::~CreateTask()
     delete ui;
 }
 
-void CreateTask::on_Add_clicked()
+void CreateTask::on_addBtn_clicked()
 {
-    QString date = ui->dateEdit->text();
-    QString time = ui->timeEdit->text();
-    DataTask data(ui->TitleLineEdit->text(), ui->DescriptionLineEdit->text(),
-                  QDateTime::currentDateTime().toString(), date + time);
-    QString tag = ui->TagsComboBox->currentText();
-    data.tag = tag;
-    emit CreatTaskSignal(&data);
-    this->close();
+    if (ui->titleEdit->text().trimmed().isEmpty())
+        return;
+
+    DataTask task(
+        ui->titleEdit->text().trimmed(),
+        ui->descEdit->text().trimmed(),
+        QDateTime::currentDateTime().toString("dd.MM.yyyy HH:mm"),
+        ui->dateEdit->date().toString("dd.MM.yyyy") + " " + ui->timeEdit->time().toString("HH:mm"),
+        ui->tagEdit->text().trimmed(),
+        ui->statusCombo->currentText()
+    );
+
+    emit taskCreated(task);
+    accept();
 }
 
-
+void CreateTask::on_cancelBtn_clicked()
+{
+    reject();
+}

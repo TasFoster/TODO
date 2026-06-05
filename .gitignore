@@ -73,6 +73,10 @@ CMakeLists.txt.user*
 *.dll
 *.exe
 
+# Editor temp files
+*.tmp.*
+*.tmp
+
 # Directories with generated files
 .moc/
 .obj/
